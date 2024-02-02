@@ -2,10 +2,44 @@
   import svelteLogo from './assets/svelte.svg'
   import viteLogo from '/vite.svg'
   import Counter from './lib/Counter.svelte'
+  import Nested from './Nested.svelte'
+
+  let name = 'Svelte'
+  let src = svelteLogo
+  let string = `this string contains some <strong>HTML!!!</strong>`;
+
+  let count = 0
+  $: doubled = count * 2
+
+
+  function increment() {
+    count += 1
+  }
 </script>
+
+
 
 <main>
   <div>
+    <!-- template literal to use variable -->
+    <h1>Hello {name.toUpperCase()}
+      <!-- can be used to HTML attribute. if the variable and attributes share the same name, it can be be written in shorthand ad below -->
+      <img {src} alt="" srcset="">
+    </h1>
+    
+    <!-- how to import other components  -->
+    <Nested />
+    <p>This is a paragraph</p>
+    <!-- In case you want to include HTML tag in your variable -->
+    <p>{@html string}</p>
+
+
+    <button on:click={increment}>
+    Clicked {count} {count === 1 ? 'time' : 'times'}
+    </button>
+
+    <p>{count} doubled is {doubled}</p>
+
     <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
       <img src={viteLogo} class="logo" alt="Vite Logo" />
     </a>
@@ -43,5 +77,11 @@
   }
   .read-the-docs {
     color: #888;
+  }
+
+  p {
+    color: goldenrod;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 2em;
   }
 </style>
